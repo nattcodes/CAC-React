@@ -6,8 +6,8 @@ import { useCurrencyInfo } from './customHooks/useCurrency'
 function App() {
   const [from, setFrom] = useState("usd")
   const [to, setTo] = useState("inr")
-  const [amount, setAmount] = useState(0)
-  const [convertedAmount, setConvertedAmount] = useState(0)
+  const [amount, setAmount] = useState()
+  const [convertedAmount, setConvertedAmount] = useState()
   const currencyInfo = useCurrencyInfo(from)
   const options = Object.keys(currencyInfo)
   const swapValues = () => {
@@ -19,9 +19,10 @@ function App() {
   }
 
   const convert = () => {
-    console.log(currencyInfo)
     setConvertedAmount(amount * currencyInfo[to])
   }
+
+  
   return (
     <div
       className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
@@ -41,8 +42,8 @@ function App() {
               <InputField
                 label="From"
                 amount={amount}
-                currencyOption={options}
-                onCurrencyChange={(currency) => setAmount(amount)}
+                options={options}
+                onCurrencyChange={(currency) => setFrom(currency)}
                 selectCurrency={from}
 
               />
@@ -52,6 +53,7 @@ function App() {
                 type="button"
                 className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
                 onClick={swapValues}
+               
               >
                 swap
               </button>
@@ -60,14 +62,14 @@ function App() {
               <InputField
                 label="To"
                 amount={convertedAmount}
-                currencyOption={options}
+                options={options}
                 onCurrencyChange={(currency) => setTo(currency)}
-                selectCurrency={from}
+                selectCurrency={to}
                 amountDisabled
               />
             </div>
             <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
-              Convert {from.toUpperCase()} to {from.toUpperCase()}
+              Convert {from.toUpperCase()} to {to.toUpperCase()}
             </button>
           </form>
         </div>

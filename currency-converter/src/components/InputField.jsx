@@ -4,7 +4,7 @@ export function InputField({
   amount,
   onAmountChange,
   onCurrencyChange,
-  currencyOptions = [],
+  options = [],
   selectCurrency = "eur",
   amountDisable = false,
   currencyDisable = false,
@@ -34,9 +34,9 @@ export function InputField({
           onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}
           disabled={currencyDisable}
         >
-          {currencyOptions.map((currencyList) => (
-            <option value={currencyList} key={currencyList}>
-              {currencyList}
+          {options.map((currencyList, index) => (
+            <option value={currencyList} key={index}>
+              {currencyList.toUpperCase()}
             </option>
 
           ))}
